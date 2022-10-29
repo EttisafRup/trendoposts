@@ -15,6 +15,7 @@ const loginRoute = require("./routes/userRoutes/userLogin")
 const logoutRoute = require("./routes/userRoutes/userLogout")
 const postBlogRoute = require("./routes/userRoutes/postBlogRoute")
 const findUserBlog = require("./routes/userRoutes/findUserBlog")
+const readUserBlog = require("./routes/userRoutes/readUserBlog")
 const accessForCookie = require("./middlewares/filters/verifyCookie/accessForCookie")
 // Error
 const errorHandler = require("./middlewares/errors/errorHandler")
@@ -39,6 +40,7 @@ app.use(express.json())
 // ! Routes Setup
 app.use("/", homeRoute)
 app.use("/blog", blogRoute)
+app.use("/blog", readUserBlog)
 
 // ?= User Routes
 app.use("/register", signupRoute)

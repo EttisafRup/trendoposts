@@ -33,24 +33,4 @@ const findUserBlog = async (req, res) => {
   }
 }
 
-const readUserBlog = async (req, res) => {
-  try {
-    const findBlog = await userBlog.findOne({ _id: req.params.id })
-    console.log(findBlog)
-    res.render("blog", {
-      pageTitle: "UserBlogs",
-      app: process.env.APP_NAME,
-      foundBlogs: findBlog,
-      user: req.isValidUser,
-      blogImage: findBlog.image,
-      title: findBlog.title,
-      subtitle: findBlog.subtitle,
-      description: findBlog.description,
-      date: findBlog.createdAt,
-    })
-  } catch (err) {
-    res.json({ error: "Oops! Something went wrong :/" })
-  }
-}
-
-module.exports = { postBlogController, addUserBlog, findUserBlog, readUserBlog }
+module.exports = { postBlogController, addUserBlog, findUserBlog }
