@@ -52,7 +52,7 @@
       header::before{
         content: '';
         position: absolute;
-        background: url(logo/banner.jpeg) no-repeat center center/cover;
+        background: url(/logo/banner.jpeg) no-repeat center center/cover;
         height: 100%;
         width: 100%;
         z-index: -2;
@@ -67,7 +67,14 @@
     </style>
 
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-
+<script>
+  async function deleteBlog(blog){
+    await fetch(`/user/deleteblog/${blog}`, {method: 'DELETE'})
+    setTimeout(() => {
+      location.reload();
+    }, 500);
+  }
+</script>
 </head>
 <body>
     <header class="text-gray-600 body-font">
@@ -75,15 +82,11 @@
 
         <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
           <a href="/" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-            <img src="logo/logo.jpeg" class="w-10 rounded-full"></img>
+            <img src="/logo/logo.jpeg" class="w-10 rounded-full"></img>
             <span class="ml-3 text-xl text-white"><%= app %></span>
           </a>
 
           <nav class="md:ml-auto md:flex flex-wrap items-center justify-center">
-           <% if(user == undefined) { %>
-            <a href="/register">
-              <button class="mx-auto text-white bg-red-500 border-0 py-1 px-4 focus:outline-none hover:bg-red-700 transition rounded-full text-sm">Register - <%= app %></button></a>  
-           <% } else { %>
               <div @click.away="open = false" class="relative" x-data="{ open: false }">
                 <button @click="open = !open" class="flex flex-row items-center space-x-2 w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-white rounded-xl hover:bg-red-600 hover:text-white transition md:w-auto md:inline md:mt-0 md:ml-4 hover:bg-gray-200 focus:bg-blue-800 focus:text-white focus:outline-none focus:shadow-outline">
                     <span><%= user.name %></span>
@@ -94,17 +97,14 @@
                 </button>
                 <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48" style="display: none;">
                     <div class="py-2 bg-white text-blue-800 text-sm rounded-sm border border-main-color shadow-sm">
-                      <a class="cursor-pointer block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="/user/blogs/<%=user._id%>">My Blogs</a>
-                      <div class="border-b"></div>
-                      <a class="cursor-pointer block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="/user/post">Post a Blog</a>
-                      <div class="border-b"></div>
-                      <a onclick="deleteAllCookies()" class="cursor-pointer block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline">Logout</a>
-                      <a class="cursor-pointer block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="/help">Support</a>
-                      <div class="border-b"></div>
+                        <a class="cursor-pointer block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="/settings">Settings</a>
+                        <div class="border-b"></div>
+                        <a class="cursor-pointer block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="/user/post">Post a Blog</a>
+                        <div class="border-b"></div>
+                        <a onclick="deleteAllCookies()" class="cursor-pointer block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline">Logout</a>
                     </div>
                 </div>
             </div>
-            <% } %>
           </nav>
     </div>
       </header>
@@ -115,7 +115,7 @@
             <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
               <h1 class="sm:text-4xl text-2xl mx-5 font-medium title-font mb-2 text-white"><span class="text-red-500 xl-3">t</span>rend<span class="text-red-600 xl-3">O</span>posts</h1>
               <div class="h-1 w-20 bg-red-600 rounded"></div>
-              <p class="custom-type w-full leading-relaxed text-xl text-white"></p>
+              <p class="w-full leading-relaxed text-xl text-white"> Blogs was posted by <span class="text-red-500 xl-3">''</span><span class="underline xl-3"><%=user.name%></span><span class="text-red-500 xl-3">''</span> is below</p>
             </div>
           </div>
           
@@ -127,12 +127,16 @@
       </section>
 
       <main>
-        <div class="px-5">
-        <p class="w-full leading-relaxed text-2xl text-white">&rarr; <span class="text-red-500 xl-3">O</span>fficial <span class="text-red-500 xl-3">B</span>logs</p>
-        <div class="h-1 w-40 bg-red-600 rounded"></div>
-      </div>
-        <div class="p-5 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-5 lg:grid-cols-3 xl:grid-cols-3 gap-5">
-       <% blogs.forEach((elem)=>{ %>
+      <div class="p-5 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-5 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+        <% if(Object.keys(foundBlogs).length === 0) { %>
+          <div class="text-center">
+          <p class="w-full leading-relaxed text-xl text-white">No Blogs has been posted! :/ </p>
+          <a class="text-red-500 font-semibold mt-3 text-center" href="/user/post"> 
+          <button class="flex flex-row items-center space-x-2 w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-white rounded-xl hover:bg-red-600 hover:text-white transition md:w-auto md:inline md:mt-0 md:ml-4 hover:bg-gray-200">
+          Post a Blog </a></button>
+        </div>
+          <%} else { %>
+       <% foundBlogs.forEach((elem)=>{ %>
 
 
            <div class="rounded overflow-hidden shadow-lg">
@@ -150,12 +154,14 @@
                    <p class="leading-relaxed text-base text-gray-500"><b>Update</b> : <%= elem.updatedAt %></p>
                 </div>
                 <div class="px-6 pt-3 mb-8">
-                    <a href="/blog/<%= elem._id %>">
-                    <button class="mx-auto text-white bg-red-500 border-0 py-1 px-4 focus:outline-none hover:bg-red-600 transition rounded-2xl text-sm">Read More</button></a>
+                    <a href="/user/blogs/view/<%= elem._id %>">
+                    <button class="mx-auto text-white bg-red-500 border-0 py-1 px-4 focus:outline-none hover:bg-red-600 transition rounded-2xl text-sm">View Blog</button></a>
+                    <button class="mx-auto md:ml-8 ml-2 text-white bg-red-500 border-0 py-1 px-4 focus:outline-none hover:bg-red-600 transition rounded-2xl text-sm" onclick="deleteBlog(`<%=elem._id%>`)">Delete Blog</button></a>
                 </div>
                 
                 </div>
     <% }) %>
+    <% } %>
 
     </div>
 </div>
@@ -171,7 +177,7 @@
               <span class="ml-3 text-xl"><%= app %></span>
             </a>
             <p class="text-sm text-gray-500 sm:ml-6 sm:mt-0 mt-4">© xtendettisaf  —
-              <a href="https://facebook.com/xtend.etti.5" rel="noopener noreferrer" class="text-gray-600 ml-1" target="_blank">@facebook</a>
+              <a href="https://github.com/EttisafRup" rel="noopener noreferrer" class="text-gray-600 ml-1" target="_blank">@github</a>
             </p>
             <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
               <a class="text-gray-500 hover:text-red-700 transition cursor-pointer">
@@ -200,21 +206,6 @@
           </div>
         </div>
       </footer>
-
-      <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-
-      <script>
-        const options = {
-    strings: [".😙 Nothing is serious here, take it ez!", ".🔥 Watch trending meme newsposts here..!", ".🖤 Signup and post yours too!!"],
-    typeSpeed: 40,
-    backSpeed: 40,
-    smartBackspace: true,
-    loop: true,
-    loopCount: Infinity,
-  };  
-
-    const typed = new Typed('.custom-type', options);
-      </script>
 
 </body>
 </html>

@@ -44,7 +44,7 @@ const checkregisterFields = [
   check("password")
     .isStrongPassword()
     .withMessage(
-      "Your password is atleast 1 Number, 1 Symbol and 1 Capital number!"
+      "Your password should contain atleast 1 Number, 1 Symbol and 1 Capital number!"
     ),
 ]
 

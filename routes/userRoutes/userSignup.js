@@ -11,7 +11,7 @@ const {
   checkregisterFields,
   registerFieldsHandler,
 } = require("../../middlewares/filters/registerFields")
-const hasCookie = require("../../middlewares/filters/hasCookie")
+const hasCookie = require("../../middlewares/filters/verifyCookie/hasCookie")
 
 route.get("/", hasCookie, registerController)
 route.post(

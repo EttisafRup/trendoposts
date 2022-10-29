@@ -13,12 +13,15 @@ const blogRoute = require("./routes/blogRoute")
 const signupRoute = require("./routes/userRoutes/userSignup")
 const loginRoute = require("./routes/userRoutes/userLogin")
 const logoutRoute = require("./routes/userRoutes/userLogout")
+const postBlogRoute = require("./routes/userRoutes/postBlogRoute")
+const findUserBlog = require("./routes/userRoutes/findUserBlog")
+const accessForCookie = require("./middlewares/filters/verifyCookie/accessForCookie")
 // Error
 const errorHandler = require("./middlewares/errors/errorHandler")
 // => ADMIN
-const postBlogRoute = require("./routes/admin/postBlogRoute")
-const deleteBlog = require("./routes/admin/deleteBlog")
-const isAdmin = require("./middlewares/filters/isAdmin")
+const adminPostBlogRoute = require("./routes/admin/postBlogRoute")
+const deleteBlog = require("./routes/userRoutes/deleteBlog")
+const isAdmin = require("./middlewares/filters/verifyCookie/isAdmin")
 // ! Cookie Parser
 app.use(cookieParser(process.env.SIGNED))
 // => Declearing it at the top just because it throws "cookieParser("signed")" error :)
@@ -36,13 +39,17 @@ app.use(express.json())
 // ! Routes Setup
 app.use("/", homeRoute)
 app.use("/blog", blogRoute)
+
 // ?= User Routes
 app.use("/register", signupRoute)
 app.use("/login", loginRoute)
 app.use("/logout", logoutRoute)
+app.use("/user", accessForCookie, postBlogRoute)
+app.use("/user", accessForCookie, findUserBlog)
+app.use("/user", accessForCookie, deleteBlog)
 // ?= Admin Route
-app.use("/admin", isAdmin, postBlogRoute)
-app.use("/admin", isAdmin, deleteBlog)
+
+app.use("/admin", isAdmin, adminPostBlogRoute)
 
 //! Error Handler
 app.use(errorHandler)

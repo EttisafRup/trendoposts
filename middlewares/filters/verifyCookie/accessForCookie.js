@@ -1,17 +1,18 @@
 const jwt = require("jsonwebtoken")
-const User = require("../../models/addSchema")
+const User = require("../../../models/addSchema")
 
-const hasCookie = async (req, res, next) => {
+const accessForCookie = async (req, res, next) => {
   try {
     const theJWTToken = req.signedCookies.trendoposts
     if (theJWTToken == undefined) {
-      next()
+      res.redirect("/")
     }
     if (theJWTToken) {
       const isValid = jwt.verify(theJWTToken, process.env.JWT_SECRET)
       const isValidUser = await User.findOne({ email: isValid.email })
+      req.isValidUser = isValidUser
       if (isValidUser) {
-        res.redirect("/")
+        next()
       }
     }
   } catch (err) {
@@ -20,4 +21,4 @@ const hasCookie = async (req, res, next) => {
   }
 }
 
-module.exports = hasCookie
+module.exports = accessForCookie

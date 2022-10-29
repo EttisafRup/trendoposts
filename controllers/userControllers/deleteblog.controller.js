@@ -1,13 +1,14 @@
-const Blog = require("../../models/blogSchema")
+const userBlog = require("../../models/userBlogSchema")
 
 const deleteBlog = async (req, res) => {
   try {
-    const findBlog = await Blog.deleteOne({ _id: req.params.id })
+    const findBlog = await userBlog.deleteOne({ _id: req.params.id })
     if (findBlog) {
-      res.json({ success: true })
+      res.end()
     }
   } catch (err) {
     res.json({ error: err.message })
+    console.log(err)
   }
 }
 

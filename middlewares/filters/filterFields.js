@@ -18,11 +18,10 @@ const filterFields = [
 const filterFieldsHandler = (req, res, next) => {
   const gotErrors = validationResult(req)
   const mappedErrors = gotErrors.mapped()
-
   if (Object.keys(mappedErrors).length === 0) {
     next()
   } else {
-    createError(mappedErrors)
+    res.json({ err: mappedErrors })
   }
 }
 

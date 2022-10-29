@@ -4,7 +4,7 @@ const {
   loginUser,
   loginController,
 } = require("../../controllers/userControllers/login.router")
-const hasCookie = require("../../middlewares/filters/hasCookie")
+const hasCookie = require("../../middlewares/filters/verifyCookie/hasCookie")
 
 route.get("/", hasCookie, loginController)
 route.post("/", loginUser)
