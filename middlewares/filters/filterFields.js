@@ -3,10 +3,10 @@ const createError = require("http-errors")
 
 const filterFields = [
   check("title")
-    .isLength({ min: 1, max: 50 })
+    .isLength({ min: 1 })
     .withMessage("Title cannot be less than 1 and more than 50 characters!"),
   check("subtitle")
-    .isLength({ min: 1, max: 100 })
+    .isLength({ min: 1 })
     .withMessage(
       "Subtitle cannot be less than 1 and more than 100 characters!"
     ),
