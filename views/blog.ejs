@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title> <%= title %> - <%= app %> </title>
+	<meta name="author" content="name" />
+	<meta name="description" content="description here" />
+	<meta name="keywords" content="keywords,here" />
+	<link rel="shortcut icon" href="img/xtend.jpg" type="image/x-icon">
+	<link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+	<!--Replace with your tailwind.css once created-->
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&display=swap');
+
+		* {
+			font-family: 'Josefin Sans', sans-serif;
+		}
+		
+	</style>
+	<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+	<script defer>
+		async function deleteAllCookies(){
+        await fetch('/logout', {method:"DELETE"})
+        setTimeout(() => {
+            location.reload()
+        }, 100);
+      }
+	</script>
+</head>
+
+
+<body class="bg-gray-100 leading-normal tracking-normal">
+
+	<nav id="header" class="fixed w-full z-10 top-0">
+
+		<div id="progress" class="h-1 z-20 top-0"
+			style="background:linear-gradient(to right, #ff0000 var(--scroll), transparent 0);"></div>
+
+		<div class="w-full md:max-w-4xl mx-auto flex flex-wrap items-center justify-between mt-0 py-3">
+
+			<div class="pl-4">
+				<a class="text-gray-900 text-base no-underline hover:no-underline font-extrabold text-xl" href="/">
+					<%= app %> <span class="text-pink-600 text-3xl">.</span>
+				</a>
+			</div>
+
+			<div class="block lg:hidden pr-4">
+				<button id="nav-toggle"
+					class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-900 hover:border-green-500 appearance-none focus:outline-none">
+					<svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+						<title>Menu</title>
+						<path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+					</svg>
+				</button>
+			</div>
+
+			<div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 bg-gray-100 md:bg-transparent z-20"
+				id="nav-content">
+				<ul class="list-reset text-center lg:flex justify-end flex-1 items-center">
+					<li class="mr-3">
+					<% if(user == undefined) { %>
+						<a href="/login">
+						  <button class="mx-auto text-white bg-red-500 border-0 py-1 px-4 focus:outline-none hover:bg-red-700 transition rounded-full text-sm">Login - <%= app %></button></a>  
+					   <% } else { %>
+						  <div @click.away="open = false" class="relative" x-data="{ open: false }">
+							<button @click="open = !open" class="flex flex-row items-center space-x-2 w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-white rounded-xl hover:bg-red-600 hover:text-white transition md:w-auto md:inline md:mt-0 md:ml-4 hover:bg-gray-200 focus:bg-blue-800 focus:text-white focus:outline-none focus:shadow-outline">
+								<span><%= user.name %></span>
+								<img class="inline h-6 rounded-full" src="https://i.pinimg.com/736x/a8/57/00/a85700f3c614f6313750b9d8196c08f5.jpg">
+								<svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}" class="inline w-4 h-4 transition-transform duration-200 transform rotate-0">
+									<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+								</svg>
+							</button>
+							<div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48" style="display: none;">
+								<div class="py-2 bg-white text-blue-800 text-sm rounded-sm border border-main-color shadow-sm">
+									<a class="cursor-pointer block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="/settings">Settings</a>
+									<div class="border-b"></div>
+									<a onclick="deleteAllCookies()" class="cursor-pointer block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline">Logout</a>
+								</div>
+							</div>
+						</div>
+						<% } %>
+					</li>
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!--Container-->
+	<div class="container w-full md:max-w-3xl mx-auto pt-20">
+
+		<div class="w-full px-4 md:px-6 text-xl text-gray-800 leading-normal" style="font-family:Georgia,serif;">
+
+			<!--Title-->
+			<div class="font-sans mb-10">
+				<h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl"><%= title %></h1>
+				<b class="text-sm md:text-base font-normal text-gray-600"><b>Published on :</b> <%= date %></p>
+			</div>
+			<!--Post Content-->
+
+			
+<!-- Image -->
+			<% if(blogImage != undefined){ %>
+			<img class="w-full h-full rounded-xl" src="<%= blogImage %>" alt="<%= title %>">
+			<% } else { %>
+	<img class="w-full h-full rounded-xl" src="../logo/noimg.png" alt="<%= title %>">
+			<% } %>
+			<!--Lead Para-->
+			<div id="description" class="py-6">
+				</div>
+
+		<!--Divider-->
+		<hr class="border-b-2 border-gray-400 mb-8 mx-4">
+
+
+		<!--Author-->
+		<div class="flex w-full items-center font-sans px-4 py-12">
+			<img class="w-10 h-10 rounded-full mr-4"
+				src="https://avatars.githubusercontent.com/u/107711625?v=4na&oh=00_AT8XzJoVsv61wAb4TcVDv_3RqS45AIU-WQAcZl7VvxN_gA&oe=62E72094"
+				alt="Avatar of Author">
+			<div class="flex-1 px-2">
+				<p class="text-base font-bold text-base md:text-xl leading-none mb-2">Xtend Ettisaf</p>
+				<p class="text-gray-600 text-xs md:text-base">Founder,<a
+						class="text-red-700 no-underline hover:underline" href="/"> <%= app %></a></p>
+			</div>
+			<div class="justify-end">
+				<button
+					class="bg-transparent border border-gray-500 hover:border-green-500 text-xs text-gray-500 hover:text-green-500 font-bold py-2 px-4 rounded-full">Read
+					More</button>
+			</div>
+		</div>
+		<!--/Author-->
+
+		<!--Divider-->
+		<hr class="border-b-2 border-gray-400 mb-8 mx-4">
+
+
+	</div>
+	<!--/container-->
+
+	<footer class="bg-white border-t border-gray-400 shadow">
+		<div class="container max-w-4xl mx-auto flex py-8">
+
+			<div class="w-full">
+				<div class="flex w-full md:w-1/2 ">
+					<div class="px-8">
+						<p class="py-4 text-gray-600 text-xl">
+						 &rarr;	<%= app %>
+						</p>
+					</div>
+				</div>
+				
+				<p class="mx-6"><strong>Updated On :</strong> <%= date %> </p>
+				<p class="mx-6" id="showDate"></p>
+			</div>
+	</footer>
+
+	<script>
+		/* Progress bar */
+		//Source: https://alligator.io/js/progress-bar-javascript-css-variables/
+		var h = document.documentElement,
+			b = document.body,
+			st = 'scrollTop',
+			sh = 'scrollHeight',
+			progress = document.querySelector('#progress'),
+			scroll;
+		var scrollpos = window.scrollY;
+		var header = document.getElementById("header");
+		var navcontent = document.getElementById("nav-content");
+
+		document.addEventListener('scroll', function () {
+
+			/*Refresh scroll % width*/
+			scroll = (h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight) * 100;
+			progress.style.setProperty('--scroll', scroll + '%');
+
+			/*Apply classes for slide in bar*/
+			scrollpos = window.scrollY;
+
+			if (scrollpos > 10) {
+				header.classList.add("bg-white");
+				header.classList.add("shadow");
+				navcontent.classList.remove("bg-gray-100");
+				navcontent.classList.add("bg-white");
+			} else {
+				header.classList.remove("bg-white");
+				header.classList.remove("shadow");
+				navcontent.classList.remove("bg-white");
+				navcontent.classList.add("bg-gray-100");
+
+			}
+
+		});
+
+
+		//Javascript to toggle the menu
+
+		// My Javascripts - Xtend Ettisaf
+		const description = `<%= description %>`
+		const parser = new DOMParser();
+		const doc = parser.parseFromString(description, 'text/html')
+		document.getElementById("description").innerHTML = doc.body.firstChild.textContent;
+			console.log("Ami", doc.body.firstChild.textContent);
+
+		document.getElementById('nav-toggle').onclick = function () {
+			document.getElementById("nav-content").classList.toggle("hidden");
+		}
+
+		const showDate = document.getElementById('showDate');
+
+		const fullDate = new Date();
+		const monthNames = ["January", "February", "March", "April", "May", "June",
+			"July", "August", "September", "October", "November", "December"];
+
+		const curDate = fullDate.getDate();
+		const curMonth = monthNames[fullDate.getMonth()];
+		const curYear =  fullDate.getFullYear();
+
+		showDate.innerHTML = `Today's Date - ${curDate} ${curMonth}, ${curYear} - GMT+0600 (Bangladesh Standard Time)`;
+	</script>
+
+</body>
+
+</html>

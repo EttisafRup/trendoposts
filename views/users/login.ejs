@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %> - <%= app %></title>
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+    <style>
+        /* width */
+        html{
+          scroll-behavior: smooth;
+        }
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#b30000, #b30000, #000000);
+  border-radius: 10px;
+  transition: 0.3s;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  transition: 0.3s;
+  background: #b30000; 
+}
+              body{
+        font-family: "Josefin Sans", sans-serif;
+        background-color: #f0ecec;
+      }
+      header::before{
+        content: '';
+        position: absolute;
+        background: url(logo/banner.jpeg) no-repeat center center/cover;
+        height: 100%;
+        width: 100%;
+        z-index: -2;
+      }
+      .black-cover{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.700);
+        z-index: -2;
+      }
+    </style>
+</head>
+<body>
+    <header class="text-gray-600 body-font">
+        <div class="black-cover"></div>
+      </header>
+<div class="bg-grey-lighter min-h-screen flex flex-col">
+    <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+        <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+            <h1 class="mb-8 text-2xl text-center"><%=app%> &hybull; Login</h1>
+            <form method="post" action="/login">
+            <input 
+                type="text"
+                class="block border w-full p-3 rounded mb-4"
+                name="identity"
+                placeholder="Email or Phone Number" />
+            <p class="error name-error"></p>
+            <input 
+                type="password"
+                class="block border w-full p-3 rounded mb-4"
+                name="password"
+                placeholder="Your Password" />
+                <p class="error password-error"></p>
+
+            <button
+                type="submit"
+                class="w-full text-center py-3 rounded bg-red-500 hover:bg-red-700 transition text-white hover:bg-green-dark focus:outline-none my-1"
+            >Login </button>
+          </form>
+        </div>
+
+        <div class="text-white mt-6">
+            Having no account? 
+            <a class="no-underline text-red-500 font-semibold hover:text-blue-500 transition" href="/register">
+                Register
+            </a>
+        </div>
+        <div class="flex">
+        <a class="no-underline text-white -mb-2" href="/">
+           &larr; Go Home
+        </a>
+    </div>
+    </div>
+</div>
+</body>
+</html>

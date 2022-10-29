@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %> - <%= app %></title>
+    
+	<!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">  -->
+<body>
+
+    <h1>Submit Your Blog on <%= app %></h1>
+
+    <form id="submit-form" method="post" action="/" enctype="multipart/form-data">
+		<label for="">Image URL Here</label>
+        <input type="text" name="image" id="avatar">
+        <p class="error image-error"></p>
+		<label for="">Title Here</label>
+        <input type="text" name="title" id="title">
+        <p class="error title-error"></p>
+		<label for="">Subtitle Here</label>
+        <textarea name="subtitle" id="subtitle" cols="23" rows="1"></textarea>
+        <p class="error subtitle-error"></p>
+        <textarea name="description" id="description" cols="23" rows="5"><!--Lead Para-->
+			<p class="py-6">
+				Paragraph 1
+			</p>
+
+			<p class="my-5"> Headline Paragrpah -</p>
+
+			<ol>
+				<li class="py-2"> ✔️ </li>
+                <li class="py-2"> ✔️ </li>
+				<li class="py-2"> ✔️ </li>
+			</ol>
+
+
+			<p class="py-6 text-3xl">Explainational Paragraph - </p>
+
+			<p>
+				<li></li>
+				Normal Paragraph
+			</p>
+			<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12"> Special Quoutes goes Here!</blockquote>
+			<p>
+				Normal Paragraph
+			</p>
+			<blockquote class="border-l-4 border-red-500 italic my-8 pl-8 md:pl-12"> 
+                Special Quoutes goes Here!
+            </blockquote>
+			<p>Normal Paragraph</p>
+
+			<li class="text-center"></li>
+			<li class="text-center"></li>
+			<li class="text-center"></li>
+
+			<ol class="text-center">
+                links Here
+				<a target="_blank" href="https://www.facebook.com/webxtendarena">
+					<li><strong>🔴 Link 1</strong></li>
+				</a>
+				<a target="_blank" href="https://discord.gg/rYWKWXwASg">
+					<li><strong>🔴 Link 2</strong></li>
+				</a>
+				<a target="_blank" href="https://m.me/j/AbZP_x-BDrHOOr_B/">
+					<li><strong>🔴 Link 3</strong></li>
+				</a>
+			</ol>
+			<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+				Special Quoutes goes Here!
+                <strong>Strong Text</strong>
+				.</blockquote>
+
+			<p class="py-6"></p>
+			<pre class="bg-gray-900 rounded text-white font-mono text-base p-2 md:p-4">
+				<code class="break-words whitespace-pre-wrap">
+If some code want to share, Write it here
+				</code>
+			</pre>
+
+		</div>
+
+		<!--Tags -->
+		<div class="text-base md:text-sm text-gray-500 px-4 py-6">
+			Tags: 
+			<a style="cursor: pointer;" class="text-base md:text-sm text-green-500 no-underline hover:underline">
+				tags goes here, with # and ;, highest 3
+			</a>
+			</textarea>
+        <p class="error description-error"></p>
+        <p class="success success-message"></p>
+        <button type="submit">Submit the Blog</button>
+    </form>
+
+	
+<script>
+
+        const form = document.getElementById('submit-form');
+
+        form.addEventListener("submit", async function(e){
+    
+            e.preventDefault()
+
+            const formData = new FormData(form)
+
+            const response = await fetch('/admin/post', {method: 'POST', body: formData})
+            const result = await response.json()
+            
+            const errorSet = result.err;
+            const successSet = result.success
+
+            if (errorSet) {
+            const grabErrors = document.querySelectorAll(".error")
+        Object.keys(grabErrors).forEach((file)=>{
+           grabErrors[file].style.display = "none";
+        })
+        Object.keys(errorSet).forEach((field)=>{
+            const errorParagraph = document.querySelector(`.${field}-error`)
+            errorParagraph.style.display = "block"
+            console.log(errorParagraph);
+            errorParagraph.textContent = errorSet[field].msg
+        })     
+        } else {
+            const grabErrors = document.querySelector(".success")
+            grabErrors.innerHTML = successSet;
+        }
+        })
+     
+    </script>
+</body>
+</html>
