@@ -39,8 +39,8 @@ app.use(express.json())
 
 // ! Routes Setup
 app.use("/", homeRoute)
-app.use("/blog", blogRoute)
-app.use("/blog", readUserBlog)
+app.use("/blog", blogRoute) // Admin Posted Blogs
+app.use("/blog", readUserBlog) // User posted blogs
 
 // ?= User Routes
 app.use("/register", signupRoute)

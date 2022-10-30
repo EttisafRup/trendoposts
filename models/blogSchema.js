@@ -18,6 +18,10 @@ const blogSchema = mongoose.Schema(
     image: {
       type: String,
     },
+    user: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

@@ -5,6 +5,7 @@ const homeRoute = async (req, res) => {
   try {
     const blogId = req.params.id
     const findBlog = await Blog.findOne({ _id: blogId })
+    const isValidUser = await User.findOne({ _id: findBlog.user })
     if (findBlog) {
       const theJWTToken = req.signedCookies.trendoposts
       const returnBlog = {
@@ -15,16 +16,9 @@ const homeRoute = async (req, res) => {
         subtitle: findBlog.subtitle,
         description: findBlog.description,
         date: findBlog.createdAt,
+        user: isValidUser,
       }
-      if (theJWTToken == undefined) {
-        res.render("blog", { ...returnBlog, user: undefined })
-      } else {
-        const isValid = jwt.verify(theJWTToken, process.env.JWT_SECRET)
-        const isValidUser = await User.findOne({ email: isValid.email })
-        if (isValidUser) {
-          res.render("blog", { ...returnBlog, user: isValidUser })
-        }
-      }
+      res.render("blog", { ...returnBlog, user: isValidUser })
     } else {
       res.json({
         failed: "No error found",

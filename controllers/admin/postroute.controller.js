@@ -15,7 +15,7 @@ const addBlog = async (req, res) => {
       image: req.files[0].filename,
     })
   } else {
-    addNewBlog = new Blog({ ...req.body })
+    addNewBlog = new Blog({ ...req.body, user: req.findAdmin._id })
   }
 
   try {
