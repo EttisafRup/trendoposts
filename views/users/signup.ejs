@@ -147,12 +147,10 @@
     if(getErrors){
       Object.keys(getErrors).forEach((field) =>{
         const errorP = document.querySelector(`.${field}-error`)
-        console.log(errorP);
         errorP.style.display = "block";
         errorP.textContent = getErrors[field].msg
       })
     } else {
-      console.log(getSuccess);
       const success = document.querySelector(".success-text")
       success.textContent = getSuccess
       setTimeout(() => {

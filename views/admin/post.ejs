@@ -117,7 +117,6 @@ If some code want to share, Write it here
         Object.keys(errorSet).forEach((field)=>{
             const errorParagraph = document.querySelector(`.${field}-error`)
             errorParagraph.style.display = "block"
-            console.log(errorParagraph);
             errorParagraph.textContent = errorSet[field].msg
         })     
         } else {

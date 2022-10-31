@@ -22,7 +22,7 @@ const homeRoute = async (req, res) => {
       res.render("home", { ...renderUser, user: isValidUser })
     }
   } catch (err) {
-    console.log(err)
+    res.json({ err: err.message })
   }
 }
 module.exports = homeRoute

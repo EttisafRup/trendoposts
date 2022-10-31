@@ -8,7 +8,6 @@ const deleteBlog = async (req, res) => {
     }
   } catch (err) {
     res.json({ error: err.message })
-    console.log(err)
   }
 }
 

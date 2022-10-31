@@ -14,7 +14,6 @@ const isAdmin = async (req, res, next) => {
     }
   } catch (err) {
     res.json({ err: "Permission denied!" })
-    console.log(err)
   }
 }
 

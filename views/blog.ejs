@@ -178,13 +178,14 @@
 
 
 		//Javascript to toggle the menu
-
 		// My Javascripts - Xtend Ettisaf
+
+		// Converting data into HTML Objects 😎🐸
+
 		const description = `<%= description %>`
 		const parser = new DOMParser();
 		const doc = parser.parseFromString(description, 'text/html')
 		document.getElementById("description").innerHTML = doc.body.firstChild.textContent;
-			console.log("Ami", doc.body.firstChild.textContent);
 
 		document.getElementById('nav-toggle').onclick = function () {
 			document.getElementById("nav-content").classList.toggle("hidden");

@@ -37,20 +37,23 @@ app.use(express.static("public"))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-// ! Routes Setup
+// ! Default Routes Setup
 app.use("/", homeRoute)
 app.use("/blog", blogRoute) // Admin Posted Blogs
-app.use("/blog", readUserBlog) // User posted blogs
+app.use("/blog", readUserBlog) // User Posted blogs
 
 // ?= User Routes
+// --> Logged-Out/New Users
 app.use("/register", signupRoute)
 app.use("/login", loginRoute)
 app.use("/logout", logoutRoute)
+// --> Logged In Users
 app.use("/user", accessForCookie, postBlogRoute)
 app.use("/user", accessForCookie, findUserBlog)
 app.use("/user", accessForCookie, deleteBlog)
-// ?= Admin Route
 
+// ?= Admin Route
+// --> Posting blogs as Admin
 app.use("/admin", isAdmin, adminPostBlogRoute)
 
 //! Error Handler
@@ -62,6 +65,7 @@ mongoose
   .then(() => console.log("MongoDB has been connected successfully!"))
   .catch((err) => console.error(err))
 
+// Localhost Facts
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on http://localhost:${process.env.PORT}`)
 })

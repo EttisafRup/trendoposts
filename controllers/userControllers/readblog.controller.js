@@ -18,7 +18,6 @@ const readUserBlog = async (req, res) => {
     })
   } catch (err) {
     res.json({ error: "Oops! Something went wrong :/" })
-    console.log(err)
   }
 }
 

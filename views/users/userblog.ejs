@@ -125,7 +125,6 @@ form.addEventListener("submit", async function(e){
 
     e.preventDefault()
 
-    console.log("Bhai Kaam ho rha hain!");
     const formData = new FormData(form)
 
     const response = await fetch('/user/post', {method: 'POST', body: formData})
@@ -134,7 +133,6 @@ form.addEventListener("submit", async function(e){
     const errorSet = result.err
     const successSet = result.success
 
-    console.log(errorSet, successSet);
     if (errorSet) {
     const grabErrors = document.querySelectorAll(".error")
 Object.keys(grabErrors).forEach((file)=>{
@@ -143,7 +141,6 @@ Object.keys(grabErrors).forEach((file)=>{
 Object.keys(errorSet).forEach((field)=>{
     const errorParagraph = document.querySelector(`.${field}-error`)
     errorParagraph.style.display = "block"
-    console.log(errorParagraph);
     errorParagraph.textContent = errorSet[field].msg
 })     
 } else {

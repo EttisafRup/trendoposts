@@ -14,10 +14,6 @@ const loginUser = async (req, res) => {
     const findUser = await User.findOne({
       $or: [{ email: req.body.identity }, { phone: req.body.identity }],
     })
-    console.log(findUser)
-    console.log(req.body.identity, req.body.password)
-    console.log(findUser.password)
-
     const comparePassword = await bcrypt.compare(
       req.body.password,
       findUser.password
@@ -40,7 +36,6 @@ const loginUser = async (req, res) => {
       res.redirect("/")
     }
   } catch (err) {
-    console.log(err)
     res.json({ err: err.message })
   }
 }

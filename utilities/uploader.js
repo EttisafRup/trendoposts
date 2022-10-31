@@ -1,3 +1,7 @@
+// I'm using a cheap hosting providing service, where I can't take much uploads from the user.
+// If you're using a better service providing or running at localhost,
+// You can use this 😊
+
 const multer = require("multer")
 const createError = require("http-errors")
 const path = require("path")
