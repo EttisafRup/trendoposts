@@ -42,10 +42,8 @@ const checkregisterFields = [
       }
     }),
   check("password")
-    .isStrongPassword()
-    .withMessage(
-      "Your password should contain atleast 1 Number, 1 Symbol and 1 Capital number!"
-    ),
+    .isLength({ min: 8 })
+    .withMessage("Your password must be at least 8 characters long!"),
 ]
 
 const registerFieldsHandler = (req, res, next) => {

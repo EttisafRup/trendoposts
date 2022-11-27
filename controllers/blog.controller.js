@@ -1,10 +1,13 @@
 const Blog = require("../models/blogSchema")
 const User = require("../models/addSchema")
+const userBlog = require("../models/userBlogSchema")
 const jwt = require("jsonwebtoken")
 const homeRoute = async (req, res) => {
   try {
     const blogId = req.params.id
-    const findBlog = await Blog.findOne({ _id: blogId })
+    const findBlog =
+      (await Blog.findOne({ _id: blogId })) ||
+      (await userBlog.findOne({ _id: blogId }))
     const isValidUser = await User.findOne({ _id: findBlog.user })
     if (findBlog) {
       const theJWTToken = req.signedCookies.trendoposts

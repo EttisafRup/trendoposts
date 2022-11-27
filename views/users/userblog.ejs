@@ -1,156 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= pageTitle %> - <%= app %></title>
-    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
     <style>
-        /* width */
-        html{
-          scroll-behavior: smooth;
-        }
+      /* width */
+      html {
+        scroll-behavior: smooth;
+      }
 
-::-webkit-scrollbar {
-  width: 5px;
-}
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
 
-/* Track */
-::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey; 
-  border-radius: 10px;
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(#b30000, #b30000, #000000);
-  border-radius: 10px;
-  transition: 0.3s;
+      /* Track */
+      ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 10px;
+      }
 
-}
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(#b30000, #b30000, #000000);
+        border-radius: 10px;
+        transition: 0.3s;
+      }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  transition: 0.3s;
-  background: #b30000; 
-}
-              body{
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        transition: 0.3s;
+        background: #b30000;
+      }
+      body {
         font-family: "Josefin Sans", sans-serif;
         background-color: #f0ecec;
       }
-      header::before{
-        content: '';
+      header::before {
+        content: "";
         position: absolute;
         background: url(../logo/banner.jpeg) no-repeat center center/cover;
         height: 100%;
         width: 100%;
         z-index: -2;
       }
-      .black-cover{
+      .black-cover {
         position: absolute;
         height: 100%;
         width: 100%;
-        background-color: rgba(0, 0, 0, 0.700);
+        background-color: rgba(0, 0, 0, 0.7);
         z-index: -2;
       }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header class="text-gray-600 body-font">
-        <div class="black-cover"></div>
-      </header>
-<div class="bg-grey-lighter min-h-screen flex flex-col">
-    <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+      <div class="black-cover"></div>
+    </header>
+    <div class="bg-grey-lighter min-h-screen flex flex-col">
+      <div
+        class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2"
+      >
         <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-            <h1 class="mb-8 text-2xl text-center"><%=app%> &hybull; Register</h1>
-            <p class="text-red-700 mb-1 error name-error" style="font-size: 12px;">For cheap hosting providor, We can't allow direct photo uploads on the server :/</p>
+          <h1 class="mb-8 text-2xl text-center"><%=app%> &hybull; Register</h1>
+          <p class="text-red-700 mb-1 error name-error" style="font-size: 12px">
+            For cheap hosting providor, We can't allow direct photo uploads on
+            the server :/
+          </p>
 
-            <form id="blog-form" method="post" action="/register">
-            <input 
-                type="text"
-                class="block border w-full p-3 rounded mb-4"
-                name="image"
-                placeholder="Blog Image URL" />
-            <textarea class="block border w-full p-3 rounded mb-4" 
-                type="text"
-                class="block border w-full p-3 rounded mb-4"
-                name="title"
-                placeholder="Blog Title" rows="1"></textarea>
+          <form id="blog-form" method="post" action="/register">
+            <input
+              type="text"
+              class="block border w-full p-3 rounded mb-4"
+              name="image"
+              placeholder="Blog Image URL"
+            />
+            <textarea
+              class="block border w-full p-3 rounded mb-4"
+              type="text"
+              class="block border w-full p-3 rounded mb-4"
+              name="title"
+              placeholder="Blog Title"
+              rows="1"
+            ></textarea>
 
-                <p class="text-red-700 mb-1 error title-error" style="font-size: 12px;"></p>
+            <p
+              class="text-red-700 mb-1 error title-error"
+              style="font-size: 12px"
+            ></p>
 
-            <textarea 
-                type="text"
-                class="block border w-full p-3 rounded mb-4"
-                name="subtitle"
-                placeholder="Blog Subtitle" rows="1"></textarea>
+            <textarea
+              type="text"
+              class="block border w-full p-3 rounded mb-4"
+              name="subtitle"
+              placeholder="Blog Subtitle"
+              rows="1"
+            ></textarea>
 
-                <p class="text-red-700 mb-1 error subtitle-error" style="font-size: 12px;"></p>
-            <textarea 
-                type="text"
-                class="block border w-full p-3 rounded mb-4"
-                name="description"
-                placeholder="Blog Description (XSS Enabled)" rows="1"></textarea>
+            <p
+              class="text-red-700 mb-1 error subtitle-error"
+              style="font-size: 12px"
+            ></p>
+            <textarea
+              type="text"
+              class="block border w-full p-3 rounded mb-4"
+              name="description"
+              placeholder="Blog Description (Accepts HTML Elements)"
+              rows="1"
+            ></textarea>
 
-                <p class="text-red-700 mb-1 error description-error" style="font-size: 12px;"></p>
+            <p
+              class="text-red-700 mb-1 error description-error"
+              style="font-size: 12px"
+            ></p>
 
             <button
-                type="submit"
-                class="w-full text-center py-3 rounded bg-red-500 hover:bg-red-700 transition text-white hover:bg-green-dark focus:outline-none my-1"
-            >Submit Blog</button>
+              type="submit"
+              class="w-full text-center py-3 rounded bg-red-500 hover:bg-red-700 transition text-white hover:bg-green-dark focus:outline-none my-1"
+            >
+              Submit Blog
+            </button>
             <p class="success success-message text-green-700"></p>
           </form>
 
-            <div class="text-center text-sm text-grey-dark mt-4">
-               &aelig; After Submitting the blog, You'll get the link! Enjoy sharing in social medias 🖤
-            </div>
+          <div class="text-center text-sm text-grey-dark mt-4">
+            &aelig; After Submitting the blog, You'll get the link! Enjoy
+            sharing in social medias 🖤
+          </div>
         </div>
 
         <div class="text-white m-2 text-center">
-            Drag to resize your Input Fields and put your blogs comfortly!  
+          Drag to resize your Input Fields and put your blogs comfortly!
         </div>
         <div class="flex">
-        <a class="no-underline text-white -mb-2" href="/">
-           &larr; Go Home
-        </a>
+          <a class="no-underline text-white -mb-2" href="/"> &larr; Go Home </a>
+        </div>
+      </div>
     </div>
-    </div>
-</div>
 
-<script>
-      const form = document.getElementById('blog-form');
+    <script>
+      const form = document.getElementById("blog-form")
 
-form.addEventListener("submit", async function(e){
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault()
 
-    e.preventDefault()
+        const formData = new FormData(form)
 
-    const formData = new FormData(form)
+        const response = await fetch("/user/post", {
+          method: "POST",
+          body: formData,
+        })
+        const result = await response.json()
 
-    const response = await fetch('/user/post', {method: 'POST', body: formData})
-    const result = await response.json()
-    
-    const errorSet = result.err
-    const successSet = result.success
+        const errorSet = result.err
+        const successSet = result.success
 
-    if (errorSet) {
-    const grabErrors = document.querySelectorAll(".error")
-Object.keys(grabErrors).forEach((file)=>{
-   grabErrors[file].style.display = "none";
-})
-Object.keys(errorSet).forEach((field)=>{
-    const errorParagraph = document.querySelector(`.${field}-error`)
-    errorParagraph.style.display = "block"
-    errorParagraph.textContent = errorSet[field].msg
-})     
-} else {
-    const grabErrors = document.querySelector(".success")
-    grabErrors.innerHTML = successSet;
-    setTimeout(() => {
-      location.href = "/user/blogs/<%=user._id%>"
-    }, 1500);
-}
-})
-</script>
-</body>
+        if (errorSet) {
+          const grabErrors = document.querySelectorAll(".error")
+          Object.keys(grabErrors).forEach((file) => {
+            grabErrors[file].style.display = "none"
+          })
+          Object.keys(errorSet).forEach((field) => {
+            const errorParagraph = document.querySelector(`.${field}-error`)
+            errorParagraph.style.display = "block"
+            errorParagraph.textContent = errorSet[field].msg
+          })
+        } else {
+          const grabErrors = document.querySelector(".success")
+          grabErrors.innerHTML = successSet
+          setTimeout(() => {
+            location.href = "/user/blogs/<%=user._id%>"
+          }, 1500)
+        }
+      })
+    </script>
+  </body>
 </html>

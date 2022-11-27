@@ -125,12 +125,14 @@
 
       </section>
 
-      <main>
-        <div class="px-5">
-        <p class="w-full leading-relaxed text-2xl text-white">&rarr; <span class="text-red-500 xl-3">O</span>fficial <span class="text-red-500 xl-3">B</span>logs</p>
-        <div class="h-1 w-40 bg-red-600 rounded"></div>
-      </div>
-        <div class="p-5 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-5 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+      <main class="-mt-12 md:mt-0">
+        <div class="px-5 flex flex-col md:flex-row">
+        <p class="officialblogtext w-52 border-2 px-2 hover:bg-white hover:text-black cursor-pointer hover:font-semibold transition rounded leading-relaxed text-2xl text-white">&rarr; <span class="text-red-500 xl-3">O</span>fficial <span class="text-red-500 xl-3">B</span>logs</p>
+
+          <p class="userblogtext w-52 border-2 px-2 hover:bg-white hover:text-black cursor-pointer hover:font-semibold transition rounded ml-0 mt-4 md:mt-0 md:ml-6 leading-relaxed text-2xl text-white">&rarr; N<span class="text-red-500 xl-3">e</span>west <span class="text-red-500 xl-3">B</span>logs</p>
+        </div>
+
+        <div class="officialblogs p-5 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-5 lg:grid-cols-3 xl:grid-cols-3 gap-5">
        <% blogs.forEach((elem)=>{ %>
 
 
@@ -159,6 +161,34 @@
     </div>
 </div>
 
+  <div class="userblogs p-5 grid grid-cols-1 md:grid-cols-3 gap-5 order-1">
+ <% userBlogs.forEach((elem)=>{ %>
+
+
+     <div class="rounded overflow-hidden shadow-lg">
+      <% if(elem.image) { %>
+         <img class="w-full h-56" src="<%= elem.image %>" alt="<%= elem.title %> Img">
+      <% } else { %>
+          <img src="logo/noimg.png" alt="">
+  <% } %>
+<div class="px-6 py-4">
+             <div class="font-bold text-xl mb-2"><%= elem.title %></div>
+             <p class="text-gray-700 text-base">
+                 <%= elem.subtitle %></p>
+              </p>
+             <span class="inline-block h-1 w-20 rounded bg-red-500 mt-0 mb-2"></span>
+             <p class="leading-relaxed text-base text-gray-500"><b>Update</b> : <%= elem.updatedAt %></p>
+          </div>
+          <div class="px-6 pt-3 mb-8">
+              <a href="/blog/<%= elem._id %>">
+              <button class="mx-auto text-white bg-red-500 border-0 py-1 px-4 focus:outline-none hover:bg-red-600 transition rounded-2xl text-sm">Read More</button></a>
+          </div>
+          
+          </div>
+<% }) %>
+
+</div>
+</div>
 </main>
 
     <footer class="text-gray-600 body-font">
@@ -213,6 +243,23 @@
   };  
 
     const typed = new Typed('.custom-type', options);
+
+
+    const officialBlogs = document.querySelector(".officialblogs")
+    const userBlogs = document.querySelector(".userblogs")
+
+    const officialBlogText = document.querySelector(".officialblogtext")
+    const userBlogText = document.querySelector(".userblogtext")
+
+    officialBlogText.addEventListener("click", ()=>{
+      officialBlogs.classList.remove("hidden")
+      userBlogs.classList.add("hidden")
+    }) 
+    userBlogText.addEventListener("click", ()=>{
+      officialBlogs.classList.add("hidden")
+      userBlogs.classList.remove("hidden")
+
+    }) 
       </script>
 
 </body>
