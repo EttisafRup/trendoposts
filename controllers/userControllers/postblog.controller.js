@@ -10,8 +10,10 @@ const postBlogController = (req, res) => {
 
 const addUserBlog = async (req, res) => {
   const isValidUser = req.isValidUser
-  req.body.description = req.body.description.replace("\r\n", "<br>")
+  req.body.description = req.body.description.replaceAll("\r\n", "<br>")
   const addNewBlog = new userBlog({ ...req.body, user: isValidUser._id })
+
+  console.log(req.body)
 
   try {
     addNewBlog.save()
