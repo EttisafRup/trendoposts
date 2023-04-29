@@ -10,7 +10,7 @@ const homeRoute = async (req, res) => {
       (await userBlog.findOne({ _id: blogId }))
     const isValidUser = await User.findOne({ _id: findBlog.user })
     if (findBlog) {
-      const theJWTToken = req.signedCookies.trendoposts
+      // const theJWTToken = req.signedCookies.trendoposts
       const returnBlog = {
         pageTitle: "Blogs",
         app: process.env.APP_NAME,

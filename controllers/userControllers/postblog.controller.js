@@ -10,7 +10,9 @@ const postBlogController = (req, res) => {
 
 const addUserBlog = async (req, res) => {
   const isValidUser = req.isValidUser
+  req.body.description = req.body.description.replace("\r\n", "<br>")
   const addNewBlog = new userBlog({ ...req.body, user: isValidUser._id })
+
   try {
     addNewBlog.save()
     res.json({ success: "Successfully Posted a New Blog!", blog: addNewBlog })
@@ -27,6 +29,7 @@ const findUserBlog = async (req, res) => {
       app: process.env.APP_NAME,
       foundBlogs: findBlog,
       user: req.isValidUser,
+      blogger: req.params.id,
     })
   } catch (err) {
     res.json({ error: "Oops! Something went wrong :/" })
