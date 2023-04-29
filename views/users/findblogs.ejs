@@ -140,11 +140,11 @@
 
 
            <div class="rounded overflow-hidden shadow-lg">
-            <% if(elem.image) { %>
-               <img class="w-full h-56" src="<%= elem.image %>" alt="<%= elem.title %> Img">
-            <% } else { %>
-                <img src="logo/noimg.png" alt="">
-        <% } %>
+            <% if(elem.image && elem.image.match("http")) { %>
+              <img class="w-56 h-56" src="<%= elem.image %>" alt="<%= elem.title %> Img">
+           <% } else { %>
+               <img src="../../../logo/noimg.jpg" alt="">
+       <% } %>
   <div class="px-6 py-4">
                    <div class="font-bold text-xl mb-2"><%= elem.title %></div>
                    <p class="text-gray-700 text-base">

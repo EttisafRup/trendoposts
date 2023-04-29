@@ -6,14 +6,24 @@ const loginController = (req, res) => {
   res.render("users/login", {
     pageTitle: "Login",
     app: process.env.APP_NAME,
+    errorMsg: "",
   })
 }
 
 const loginUser = async (req, res) => {
+  if (req.body.password == null || req.body.identity == "") {
+    res.render("users/login", {
+      pageTitle: "Login",
+      app: process.env.APP_NAME,
+      errorMsg: "None of these fields can be blank.",
+    })
+  }
+
   try {
     const findUser = await User.findOne({
       $or: [{ email: req.body.identity }, { phone: req.body.identity }],
     })
+
     const comparePassword = await bcrypt.compare(
       req.body.password,
       findUser.password
@@ -34,9 +44,21 @@ const loginUser = async (req, res) => {
         signed: true,
       })
       res.redirect("/")
+    } else {
+      if (findUser.password !== req.body.password) {
+        res.render("users/login", {
+          pageTitle: "Login",
+          app: process.env.APP_NAME,
+          errorMsg: "Username or Password does not match.",
+        })
+      }
     }
   } catch (err) {
-    res.json({ err: err.message })
+    res.render("users/login", {
+      pageTitle: "Login",
+      app: process.env.APP_NAME,
+      errorMsg: "No user Found.",
+    })
   }
 }
 module.exports = { loginController, loginUser }
